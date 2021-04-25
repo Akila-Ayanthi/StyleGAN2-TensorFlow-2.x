@@ -24,10 +24,10 @@ class MappingNetwork(tf.keras.layers.Layer):
     def get_config(self):
       config = super().get_config().copy()
       config.update({
-        'dlatent_size' = self.dlatent_size,
-        'dlatent_vector' = self.dlatent_vector,
-        'mapping_layers' = self.mapping_layers,
-        'lmrul' = self.lrmul,
+        'dlatent_size' : self.dlatent_size,
+        'dlatent_vector' : self.dlatent_vector,
+        'mapping_layers' : self.mapping_layers,
+        'lmrul' : self.lrmul,
       })
       return config
 
@@ -89,11 +89,11 @@ class SynthesisNetwork(tf.keras.layers.Layer):
     def get_config(self):
       cfg = super().get_config().copy()
       cfg.update({
-        'impl' = self.impl,
-        'gpu' = self.gpu,
-        'resolution' = self.resolution,
-        'resolution_log2' = self.resolution_log2,
-        'resample_kernel' = self.resample_kernel,
+        'impl' : self.impl,
+        'gpu' : self.gpu,
+        'resolution' : self.resolution,
+        'resolution_log2' : self.resolution_log2,
+        'resample_kernel' : self.resample_kernel,
       })
       return cfg
         
