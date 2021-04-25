@@ -21,6 +21,17 @@ class MappingNetwork(tf.keras.layers.Layer):
         self.mapping_layers = 8
         self.lrmul = 0.01
         
+    def get_config(self):
+      config = super().get_config().copy()
+      config.update({
+        'dlatent_size' = self.dlatent_size,
+        'dlatent_vector' = self.dlatent_vector,
+        'mapping_layers' = self.mapping_layers,
+        'lmrul' = self.lrmul,
+      })
+      return config
+
+        
     def build(self, input_shape):
 
         self.weights_dict = {}
@@ -74,6 +85,17 @@ class SynthesisNetwork(tf.keras.layers.Layer):
         
         self.resolution_log2 = int(np.log2(self.resolution))
         self.resample_kernel = [1, 3, 3, 1]
+        
+    def get_config(self):
+      cfg = super().get_config().copy()
+      cfg.update({
+        'impl' = self.impl,
+        'gpu' = self.gpu,
+        'resolution' = self.resolution,
+        'resolution_log2' = self.resolution_log2,
+        'resample_kernel' = self.resample_kernel,
+      })
+      return cfg
         
     def build(self, input_shape):
         
@@ -149,6 +171,16 @@ class StyleGan2Generator(tf.keras.layers.Layer):
             #we run the network to define it, not the most efficient thing to do...
             _ = self(tf.zeros(shape=(1, 512)))
             self.__load_weights(weights)
+            
+            
+    def get_config(self):
+      cfg = super().get_config().copy()
+      cfg.update({
+        'resolution' : self.resolution,
+        'mapping_network' : self.mapping_network,
+        'synthesis_network' : self.synthesis_network,
+      })
+      return cfg
         
     def call(self, z):
         """
